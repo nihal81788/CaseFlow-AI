@@ -3,7 +3,7 @@ import json
 import re
 
 OLLAMA_API_URL = "http://localhost:11434/api/generate"
-MODEL_NAME = "llama3.2:3b"
+MODEL_NAME = "deepseek-r1:8b"
 
 def analyze_document(text, retry=False):
     print(f"[Analyzer] Sending document to local Ollama ({MODEL_NAME}) for analysis...")
@@ -46,7 +46,7 @@ The JSON MUST have exactly these fields:
 }}
 
 Here is the document text:
-{text[:4000]}
+{text}
 '''
 
     prompt = base_prompt
@@ -68,7 +68,8 @@ Here is the document text:
         print("[Analyzer] Received response from Ollama.")
         
         try:
-             cleaned_text = re.sub(r'```json\s*', '', result_text)
+             cleaned_text = re.sub(r'<think>.*?</think>\s*', '', result_text, flags=re.DOTALL)
+             cleaned_text = re.sub(r'```json\s*', '', cleaned_text)
              cleaned_text = re.sub(r'```\s*', '', cleaned_text)
              parsed_json = json.loads(cleaned_text)
              
