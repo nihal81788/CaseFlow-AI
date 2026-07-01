@@ -1,17 +1,11 @@
-import fitz  # PyMuPDF
+import fitz
 import os
 
 def extract_text(pdf_path):
-    """
-    Extracts text from a given PDF file.
-    Returns plain string or an error message if unreadable.
-    """
     print(f"[Extractor] Extracting text from {os.path.basename(pdf_path)}...")
     text = ""
     try:
-        # Open the PDF file
         doc = fitz.open(pdf_path)
-        # Loop through each page and extract text
         for page_num in range(len(doc)):
             page = doc.load_page(page_num)
             text += page.get_text()

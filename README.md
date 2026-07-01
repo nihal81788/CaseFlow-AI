@@ -8,7 +8,7 @@ With 50.6 million pending court cases in India, CaseFlow AI is built to drastica
 * **Fully Offline AI Processing**: Uses the `llama3.2:3b` model running locally via Ollama, ensuring legal documents never leave your machine.
 * **Automated Document Watcher**: Simply drop legal PDFs into the `inbox/` folder, and the app automatically picks them up, reads them, and moves them to organized subfolders.
 * **Smart Data Extraction**: Parses complex legal texts into structured data (Case Number, Court Name, Judge, Hearing Date, Required Documents, Next Actions, and a summary).
-* **Excel & SQLite Syncing**: Automatically saves processed data to a local SQLite database for CaseWatch backend integration, and appends the extracted data to an easy-to-read Excel file (`data/extracted_data.xlsx`).
+* **Excel Syncing**: Automatically appends the extracted data to an easy-to-read Excel file (`data/extracted_data.xlsx`).
 * **Background Scheduler**: 
   * Checks for upcoming hearings daily at 8:00 AM.
   * Generates a comprehensive text summary report of all documents processed today at 8:00 PM.
@@ -18,9 +18,8 @@ With 50.6 million pending court cases in India, CaseFlow AI is built to drastica
 - `watcher.py`: Uses `watchdog` to monitor the `inbox/` folder for new PDFs.
 - `extractor.py`: Uses `PyMuPDF` to extract text from the PDF.
 - `analyzer.py`: Sends the text to the local Ollama API to enforce structured JSON output.
-- `database.py` & `excel_export.py`: Handles saving the structured data into SQLite and Excel.
+- `excel_export.py`: Handles saving the structured data into Excel.
 - `organizer.py`: Renames the PDF and moves it to the correct `organized/` subfolder based on the document type.
-- `scheduler.py`: Uses `APScheduler` to run the 8:00 AM hearing checks and 8:00 PM reporting jobs.
 
 ## How to Run This Project
 
